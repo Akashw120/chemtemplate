@@ -33,7 +33,13 @@ const generateTeacherAnswer = (stepName, editorType, editbox, ddm) => {
             answerArr.push(answer);
         }
         teacherAnswer = `
-        <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value="@ans_${stepName};">`;
+       
+        <if cond=("@mode;" == "server_if")>
+            <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value=#{ans_returned_${stepName}_1:"\\\\editbox;[]"}>
+        <else>
+             <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value="@ans_${stepName};">
+        </if>
+        `;
     }
     else if (editorType == "ansed") {
         let answer = `\\\\editbox;[]`;
