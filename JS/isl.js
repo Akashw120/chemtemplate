@@ -1,6 +1,20 @@
-
-
-const getISLCode = (statementStepsList, staticSourceAnsList, resolutionStepsList, statementSteps, resolutionSteps, staticSourceList, triesModule, apModuleList, extraTeacher, teacherAnswer, teacherHTML, finalAP, intermidiateFunction, generateNumListFunction, stikeMathFunction) => {
+const getISLCode = (
+  statementStepsList,
+  staticSourceAnsList,
+  resolutionStepsList,
+  statementSteps,
+  resolutionSteps,
+  staticSourceList,
+  triesModule,
+  apModuleList,
+  extraTeacher,
+  teacherAnswer,
+  teacherHTML,
+  finalAP,
+  intermidiateFunction,
+  generateNumListFunction,
+  stikeMathFunction
+) => {
   var isl_code = `<def>
   <include module=userfChemistry>
   ${intermidiateFunction}${generateNumListFunction}${stikeMathFunction}
@@ -14,13 +28,16 @@ const getISLCode = (statementStepsList, staticSourceAnsList, resolutionStepsList
 </description>
 
 <ITEM TITLE="@Title">
+
   <INSTANCE>
+    <integer name=v0 from=1 to=10>
   </INSTANCE>
+  
   <REQUIREMENT>
   </REQUIREMENT>
 
   <!-- *************************************** Sequence Block ***************************************-->
-  <var name=item_instance_values value={}>
+  <var name=item_instance_values value={"@v0;"}>
   <SEQUENCE INDEX=history>
       <SIGNATURE NAME=@autoSequenceSignatureName() VALUE="@formatAutoSequenceSignature(@item_instance_values;)">
   </SEQUENCE>
@@ -34,29 +51,23 @@ const getISLCode = (statementStepsList, staticSourceAnsList, resolutionStepsList
       <def module=".">
 	  
         <!-- ###############################<< Styling >>###############################-->
-        <var name=varEqualTo value=@userf.disp("=")>
-        <var name=indent_start value="@userf.indent_begin();">
-        <var name=indent_end value="@userf.indent_end();">
-        <var name=table_width value="width=40">
+        
+        <var name=iB value="@userf.indent_begin();">
+        <var name=iE value="@userf.indent_end();">
+
         <var name=nlHint value="@.newLineHint;">
         <var name=xl value="@userf.xlist();">
-        <var name=valign_base value="valign=baseline">
-        <var name=align_right value='style="text-align:right;"'>
-        <var name=align_left value='style="text-align:left;"'>
-        <var name=align_center value='style="text-align:center;"'> 
-		
-	      <!-- ###############################<< Question >>###############################-->
-        <text ref=i1_table>
-          <table role="presentation">
-            <tr>
-              <td rw id=i1_chemform_id>%tabed_source_I1_1;</td>
-            </tr>
-          </table>
-    		</text>
 
-        <!-- ###############################<< show me and t_html >>###############################-->
+        <var name=chem value="<math><font face=chemsymb></font></math>">
+
+        <!-- ###############################<< Question >>###############################-->
+        
+        <var name=item_name value="">
+        <var name=tool_que value=((@v0;<10)?"QT0@v0;":"QT@v0;")>
+
+        <!-- ###############################<< editor_ans >>###############################-->
+        
         ${staticSourceList}
-
         ${staticSourceAnsList}
 
       </def> 
@@ -72,7 +83,9 @@ const getISLCode = (statementStepsList, staticSourceAnsList, resolutionStepsList
         <!-- *************************************** Main Question ***************************************-->
         <function name=StatementModule_Main list={modeRequested}>
           <TEXT REF=STATEMENT>
-          
+            ______________DEBUG_____________@v0;
+            <p>%Qn_text1;</p>
+            &(("@modeRequested"!="resolution") ? "<p>&text(I1_text1))</p>" : "");
           </TEXT>
           <return value="STATEMENT">
         </function>
@@ -91,7 +104,7 @@ const getISLCode = (statementStepsList, staticSourceAnsList, resolutionStepsList
         <!-- *************************************** Show Me ***************************************-->
         <function name=ResolutionModule_Main list={modeRequested}> 
           <TEXT REF=RESOLUTION>
-          
+            <p>%EP_text1;</p>
           </TEXT>
           <return value="RESOLUTION">
         </function>
@@ -111,17 +124,19 @@ const getISLCode = (statementStepsList, staticSourceAnsList, resolutionStepsList
     </function>
 
     <function name=HtmlTeacherModule list={partRequested}>
+      <var name=iB value="">
+      <var name=iE value="">
       <unvar name=teacherAnswerHTML>${teacherHTML}
       <return value="@teacherAnswerHTML">
     </function>
 
     <function name=HintModule list={}>
-      <return value=text()>
+      <return value=text(Hint_text)>
     </function>
     
   </QUESTION>
   ${finalAP}
 </ITEM>
-    `
+    `;
   return isl_code;
-}
+};

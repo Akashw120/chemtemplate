@@ -1,24 +1,24 @@
 body {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 div,
 #isl-data,
 .gs-question-table,
 .main-question-table {
-    margin: 20px;
+  margin: 20px;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 .formData {
-    position: fixed;
-    top: 50px;
-    left: 50px;
-    z-index: 9;
-    background:yellowgreen;
-    font-size: 22px;;
+  position: fixed;
+  top: 50px;
+  left: 50px;
+  z-index: 9;
+  background: yellowgreen;
+  font-size: 22px;
 }
