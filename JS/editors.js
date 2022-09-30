@@ -248,7 +248,9 @@ const statObjectReference = () => {
       }
       for (k = 1; k <= editbox + ddm; k++) {
         let source = `
-        <text ref=${editorType}_source_${stepName}_${k}></text>`;
+        <text ref=${editorType}_source_${stepName}_${k}><object name=UIChoice>
+            <option value="1"></option>
+            <option value="2"></option></object></text>`;
         sourceArr.push(source);
       }
     }
