@@ -1,6 +1,7 @@
 const getISLCode = (
   statementStepsList,
   staticSourceAnsList,
+  staticVarsList,
   resolutionStepsList,
   statementSteps,
   resolutionSteps,
@@ -30,14 +31,13 @@ const getISLCode = (
 <ITEM TITLE="@Title">
 
   <INSTANCE>
-    <integer name=v0 from=1 to=10>
   </INSTANCE>
   
   <REQUIREMENT>
   </REQUIREMENT>
 
   <!-- *************************************** Sequence Block ***************************************-->
-  <var name=item_instance_values value={"@v0;"}>
+  <var name=item_instance_values value={}>
   <SEQUENCE INDEX=history>
       <SIGNATURE NAME=@autoSequenceSignatureName() VALUE="@formatAutoSequenceSignature(@item_instance_values;)">
   </SEQUENCE>
@@ -62,11 +62,11 @@ const getISLCode = (
 
         <!-- ###############################<< Question >>###############################-->
         
-        <var name=item_name value="">
-
-        <!-- ###############################<< editor_ans >>###############################-->
+        <!-- ###############################<< editor >>###############################-->
         
         ${staticSourceList}
+        
+        <!-- ###############################<< editor_ans >>###############################-->
         ${staticSourceAnsList}
 
       </def> 
@@ -82,7 +82,6 @@ const getISLCode = (
         <!-- *************************************** Main Question ***************************************-->
         <function name=StatementModule_Main list={modeRequested}>
           <TEXT REF=STATEMENT>
-            ______________DEBUG_____________@v0;
             <p>%Qn_text1;</p>
             &(("@modeRequested"!="resolution") ? "<p>&(text(I1_text1))</p>" : "");
           </TEXT>
@@ -102,6 +101,7 @@ const getISLCode = (
 
         <!-- *************************************** Show Me ***************************************-->
         <function name=ResolutionModule_Main list={modeRequested}> 
+          ${staticVarsList}
           <TEXT REF=RESOLUTION>
             <p>%EP_text1;</p>
           </TEXT>

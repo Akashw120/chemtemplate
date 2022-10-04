@@ -13,16 +13,17 @@ const htmlTeacherModule = (editorType) => {
         </if>`;
     } else {
       ta = `
-        <var name=teacherAnswerHTML cond=("@partRequested;" == "${stepName}") value="&(text())">`;
+        <var name=${editorData.type}_display_${stepName}_TA value=@.toolLayout.createTool('${editorData.type}','${editorData.type}_${stepName}_TA','display',#{recall:text(),fillAnswer:"&(text(ans_${stepName}))"});>
+        <var name=teacherAnswerHTML cond=("@partRequested;" == "${stepName}") value="@${editorData.type}_display_${stepName}_TA;">`;
     }
     taArr.push(ta);
     i++;
   });
-  gsQuestions.forEach((question, editorData) => {
+  gsQuestions.forEach((question) => {
     let stepName = "GS" + j;
     if (!question.static) {
       let ta = ``;
-      if (editorData.type == "moleced") {
+      if (question.type == "moleced") {
         ta = `
         <if cond=("@partRequested;" == "${stepName}")>
         <var name=moleced_display_${stepName}_TA value=@toolLayout.createAuthoringTool("moleced_disp_TA_${stepName}","@tool_TA_${stepName};","@item_name;");>
@@ -30,7 +31,8 @@ const htmlTeacherModule = (editorType) => {
         </if>`;
       } else {
         ta = `
-        <var name=teacherAnswerHTML cond=("@partRequested;" == "${stepName}") value="&(text())">`;
+        <var name=${question.type}_display_${stepName}_TA value=@.toolLayout.createTool('${question.type}','${question.type}_${stepName}_TA','display',#{recall:text(),fillAnswer:"&(text(ans_${stepName}))"});>
+        <var name=teacherAnswerHTML cond=("@partRequested;" == "${stepName}") value="@${question.type}_display_${stepName}_TA;">`;
       }
       taArr.push(ta);
     }
@@ -55,16 +57,16 @@ const generateTeacherAnswer = (stepName, editorType, editbox, ddm) => {
         <if cond=("@mode;" == "server_if")>
             <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value=#{ans_returned_${stepName}_1:"\\\\editbox;[]"}>
         <else>
-             <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value="@ans_${stepName};">
+             <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value="&(text(ans_${stepName}));">
         </if>
         `;
   } else if (editorType == "ansed") {
     let answer = `\\\\editbox;[]`;
     teacherAnswer = `
-        <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value="@ans_${stepName};">`;
+        <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value="&(text(ans_${stepName}));">`;
   } else if (editorType == "tabed") {
     teacherAnswer = `
-        <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value="@ans_${stepName};">`;
+        <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value="&(text(ans_${stepName}));">`;
   } else if (editorType == "moleced") {
     teacherAnswer = `
         <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value=("@mode" == "solve" ? "@answer_list_${stepName};" : "@fin_recall_hash_${stepName};")>`;
@@ -88,22 +90,50 @@ const generateTeacherAnswerSource = (stepName, editorType, editbox, ddm) => {
       answerArr.push(answer);
     }
     teacherAnswer = `
-        <var name=ans_${stepName} value="${answerArr.join("")}">`;
+        <text ref=ans_${stepName}>${answerArr.join("")}</text>`;
   } else if (editorType == "ansed") {
     let answer = `\\\\editbox;[]`;
     teacherAnswer = `
-        <var name=ans$_${stepName} value="${answer}">`;
+    <text ref=ans_${stepName}>${answer}</text>`;
   } else if (editorType == "tabed") {
     teacherAnswer = `
-        <var name=ans_${stepName} value="\\\\set1;[]">`;
+        <text ref=ans_${stepName}>\\\\set1;[]</text>`;
   } else if (editorType == "moleced") {
     teacherAnswer = `
-        <var name=tool_TA_${stepName} value=((@v0;<10)?"TA@v0;":"TA0@v0;")>`;
+        <var name=tool_TA_${stepName} value="">`;
   } else {
     teacherAnswer = `
         <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value=("@mode" == "solve" ? "&(text())" : "&(text())")>`;
   }
   return teacherAnswer;
+};
+
+const generateStaticVar = (stepName, editorType, editbox, ddm) => {
+  let staticVar = ``;
+  if (editorType == "formed") {
+    let varArr = [];
+    for (i = 1; i <= editbox + ddm; i++) {
+        let varStr = `<text ref=${editorType}_source_${stepName}_${i}></text>
+        `;
+        varArr.push(varStr);
+    }
+    staticVar = varArr.join(' ');
+  } else if (editorType == "ansed") {
+    staticVar = `
+    <text ref=ansed_source_${stepName}_1></text>`;
+  } else if (editorType == "tabed") {
+    let varArr = [];
+    for (i = 1; i <= editbox + ddm; i++) {
+        let varStr = `<text ref=${editorType}_source_${stepName}_${i}></text>
+        `;
+        varArr.push(varStr);
+    }
+    staticVar = varArr.join(' ');
+  } else {
+    staticVar = `
+        `;
+  }
+  return staticVar;
 };
 
 const teacherAnswerModule = () => {

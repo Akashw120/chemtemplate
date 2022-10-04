@@ -246,13 +246,10 @@ const statObjectReference = () => {
         editbox = question.editbox;
         ddm = question.ddm;
       }
-      for (k = 1; k <= editbox + ddm; k++) {
-        let source = `
-        <text ref=${editorType}_source_${stepName}_${k}><object name=UIChoice>
-            <option value="1"></option>
-            <option value="2"></option></object></text>`;
-        sourceArr.push(source);
-      }
+      let sourceText = sourceGenerator(question.type, stepName, editbox, ddm);
+      let source = `
+        ${sourceText}`;
+      sourceArr.push(source);
     }
     j++;
   });

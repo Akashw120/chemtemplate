@@ -276,6 +276,60 @@ const staticSourceAnsListGenerate = () => {
   return `${teacherAnswerArr.join("")}`;
 };
 
+const staticVarsEPGenerate = () => {
+  let staticVarsArr = [];
+  let i = 1,
+    j = 1;
+  mainQuestions.forEach((question) => {
+    let stepName = "I" + i;
+    let editorType = question.type;
+    let editbox = 0;
+    let ddm = 0;
+    if (
+      editorType == "ansed" ||
+      editorType == "formed" ||
+      editorType == "tabed"
+    ) {
+      editbox = question.editbox;
+      ddm = question.ddm;
+    }
+    let staticVar = generateStaticVar(
+      stepName,
+      editorType,
+      editbox,
+      ddm
+    );
+    staticVarsArr.push(staticVar);
+    i++;
+  });
+  gsQuestions.forEach((question) => {
+    let stepName = "GS" + j;
+    let editorType;
+    if (!question.static) {
+      editorType = question.type;
+      let editbox = 0;
+      let ddm = 0;
+      if (
+        editorType == "ansed" ||
+        editorType == "formed" ||
+        editorType == "tabed"
+      ) {
+        editbox = question.editbox;
+        ddm = question.ddm;
+      }
+      let staticVar = generateStaticVar(
+        stepName,
+        editorType,
+        editbox,
+        ddm
+      );
+      staticVarsArr.push(staticVar);
+    }
+    j++;
+  });
+  return `${staticVarsArr.join("")}`;
+};
+
 const generateISL = () => {
   const statementStepsList = generateStatementSteps();
   const resolutionStepsList = generateResolutionSteps();
@@ -283,6 +337,7 @@ const generateISL = () => {
   const resolutionSteps = getResolutionSteps();
   const staticSourceList = statObjectReference();
   const staticSourceAnsList = staticSourceAnsListGenerate();
+  const staticVarsList = staticVarsEPGenerate();
   const triesModule = calculateTries();
   const apModuleList = ansproModuleList();
   const extraTeacher = extraTA();
@@ -295,6 +350,7 @@ const generateISL = () => {
   const islCode = getISLCode(
     statementStepsList,
     staticSourceAnsList,
+    staticVarsList,
     resolutionStepsList,
     statementSteps,
     resolutionSteps,
