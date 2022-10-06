@@ -35,7 +35,7 @@ const sourceGenerator = (editor, stepName, editbox, ddm) => {
     return `${editboxSource.join("")}${ddmSource.join("")}`;
   } else {
     return `${editboxSource.join("")}
-          ${ddmSource.join("")}`;
+        ${ddmSource.join("")}`;
   }
 };
 
