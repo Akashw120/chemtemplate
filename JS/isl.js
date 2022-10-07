@@ -83,7 +83,7 @@ const getISLCode = (
         <function name=StatementModule_Main list={modeRequested}>
           <TEXT REF=STATEMENT>
             <p>%Qn_text1;</p>
-            &(("@modeRequested"=="resolution") ? "<p>&(text(I1_text1))</p>" : "");
+            &(("@modeRequested"=="resolution" || "@modeRequested"=="gs") ? "<p>&(text(I1_text1))</p>" : "");
           </TEXT>
           <return value="STATEMENT">
         </function>
