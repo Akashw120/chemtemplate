@@ -8,6 +8,7 @@ const addStructure = () => {
     const checkboxs = `
         <div class="checkbox-bar">
             <input type=checkbox id="add-intermediate-inst" name="intermediateInst"/><label for="add-intermediate-inst">Intermediate Inst</label>
+            <input type=checkbox id="add-intermediate-val" name="intermediateVal"/><label for="add-intermediate-inst">Intermediate Value</label>
             <input type=checkbox id="generate-num-list" name="generateNumList"/><label for="generate-num-list">Generate Num List</label>
             <input type=checkbox id="add-strike-math" name="strikeMath"/><label for="add-strike-math">Strike Math</label>
         </div>`;
@@ -56,9 +57,10 @@ const addFormButtonListener = () => {
             editorData.tries = tries;
             editorData.editbox = editbox;
             editorData.ddm = ddm;
-            if (type == "ansed" || type == "tabed") {
-                editorData.extraFeature = extraFeature;
-            }
+            editorData.extraFeature = extraFeature;
+            // if (type == "ansed" || type == "tabed") {
+            //     editorData.extraFeature = extraFeature;
+            // }
         }
         mainQuestions.push(editorData);
         updateISL();
@@ -85,9 +87,10 @@ const addFormButtonListener = () => {
             if (type == "ansed" || type == "formed" || type == "tabed") {
                 editorData.editbox = editbox;
                 editorData.ddm = ddm;
-                if (type == "ansed" || type == "tabed") {
-                    editorData.extraFeature = extraFeature;
-                }
+                editorData.extraFeature = extraFeature;
+                // if (type == "ansed" || type == "tabed") {
+                //     editorData.extraFeature = extraFeature;
+                // }
             }
         }
         gsQuestions.push(editorData);
@@ -127,6 +130,11 @@ const addButtonsListener = () => {
 const addCheckListner = () => {
     $("#add-intermediate-inst").on('click',() => {
         intermediateInst = $("#add-intermediate-inst").prop("checked");
+        updateISL();
+    });
+
+    $("#add-intermediate-val").on('click',() => {
+        intermediateVal = $("#add-intermediate-val").prop("checked");
         updateISL();
     });
 
@@ -182,6 +190,8 @@ const enableForAnsedFormedTabedMain = () => {
     $("#mainTriesCount").removeAttr("disabled");
     $("#mainEditboxCount").removeAttr("disabled");
     $("#mainDropdownCount").removeAttr("disabled");
+    
+    enabledExtraFeaturesMain();
     $("#submitMainForm").removeAttr("disabled");
 }
 

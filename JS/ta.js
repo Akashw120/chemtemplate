@@ -107,13 +107,16 @@ const generateTeacherAnswerSource = (stepName, editorType, editbox, ddm) => {
   } else if (editorType == "ansed") {
     let answer = `\\\\editbox;[]`;
     teacherAnswer = `
-    <text ref=ans_${stepName}>${answer}</text>`;
+        <text ref=ans_${stepName}>${answer}</text>
+        `;
   } else if (editorType == "tabed") {
     teacherAnswer = `
-        <text ref=ans_${stepName}>\\\\set1;[]</text>`;
+        <text ref=ans_${stepName}>\\\\set1;[]</text>
+        `;
   } else if (editorType == "moleced") {
     teacherAnswer = `
-        <var name=tool_TA_${stepName} value="">`;
+        <var name=tool_TA_${stepName} value="">
+        `;
   } else {
     teacherAnswer = `
         <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value=("@mode" == "solve" ? "&(text())" : "&(text())")>`;

@@ -15,9 +15,10 @@ const updateDataInTable = () => {
             noOfTries = question.tries;
             noOfEditbox = question.editbox;
             noOfddm = question.ddm;
-            if (editorType == "ansed" || editorType == "tabed") {
-                extraFeature = question.extraFeature;
-            }
+            extraFeature = question.extraFeature;
+            // if (editorType == "ansed" || editorType == "tabed") {
+            //     extraFeature = question.extraFeature;
+            // }
         }
         let row = `<tr>
                     <td>I${stepName}</td>
@@ -39,9 +40,10 @@ const updateDataInTable = () => {
             if (editorType == "ansed" || editorType == "formed" || editorType == "tabed") {
                 noOfEditbox = gs.editbox;
                 noOfddm = gs.ddm;
-                if (editorType == "ansed" || editorType == "tabed") {
-                    extraFeature = gs.extraFeature;
-                }
+                extraFeature = gs.extraFeature;
+                // if (editorType == "ansed" || editorType == "tabed") {
+                //     extraFeature = gs.extraFeature;
+                // }
             }
         }
 

@@ -13,12 +13,13 @@ const getISLCode = (
   teacherHTML,
   finalAP,
   intermidiateFunction,
+  intermidiateFunctionValue,
   generateNumListFunction,
   stikeMathFunction
 ) => {
   var isl_code = `<def>
   <include module=userfChemistry>
-  ${intermidiateFunction}${generateNumListFunction}${stikeMathFunction}
+  ${intermidiateFunction}${intermidiateFunctionValue}${generateNumListFunction}${stikeMathFunction}
 </def>
 
 <description>
@@ -68,7 +69,7 @@ const getISLCode = (
         
         <!-- ###############################<< editor_ans >>###############################-->
         ${staticSourceAnsList}
-
+        
       </def> 
     </function>
 

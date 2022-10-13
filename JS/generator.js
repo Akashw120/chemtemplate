@@ -32,9 +32,10 @@ const getStatementSteps = () => {
     ) {
       editbox = question.editbox;
       ddm = question.ddm;
-      if (editorType == "ansed" || editorType == "tabed") {
-        extraFeature = question.extraFeature;
-      }
+      extraFeature = question.extraFeature;
+      // if (editorType == "ansed" || editorType == "tabed") {
+      //   extraFeature = question.extraFeature;
+      // }
     }
     const comment =
       `<!-- *************************************** I` +
@@ -46,7 +47,7 @@ const getStatementSteps = () => {
         editor = ansedGenerator(i, 1, editbox, ddm, extraFeature);
         break;
       case "formed":
-        editor = formedGenerator(i, 1, editbox, ddm);
+        editor = formedGenerator(i, 1, editbox, ddm, extraFeature);
         break;
       case "tabed":
         editor = tabedGenerator(i, 1, editbox, ddm, extraFeature);
@@ -108,7 +109,7 @@ const getResolutionSteps = () => {
         editor = ansedGenerator(i, 2, editbox, ddm, extraFeature);
         break;
       case "formed":
-        editor = formedGenerator(i, 2, editbox, ddm);
+        editor = formedGenerator(i, 2, editbox, ddm, extraFeature);
         break;
       case "tabed":
         editor = tabedGenerator(i, 2, editbox, ddm, extraFeature);
@@ -188,6 +189,33 @@ const generateIntermidiateInst = () => {
   }
 };
 
+const generateIntermidiateValue = () => {
+  if (intermediateVal) {
+    return `
+    <function name=extra_digit_intermediate list={num,sigfig,max_extra_digit}>
+    <var name=max_extra_digit value=((@max_extra_digit;)?@max_extra_digit;:2)>
+    
+    <var name=count value=0>
+    <var name=hdot_flag value=0>
+    <for name=i value=0 cond=(@i;<=@max_extra_digit;) next=(@i; + 1)>
+  		<var name=num_val value=@userf.ansSigFig(@num;,(@sigfig;+@i;))>
+      <if cond=(@num_val;==@num;)>
+      	<var name=i value=(@max_extra_digit;+1)>
+      <else>
+    		<var name=count value=@count;+1>
+      </if>
+		</for>
+    
+    <var name=hdot_flag cond=(@count;>@max_extra_digit;) value=1>
+    <var name=sigfig value=(@sigfig;+@count;-@hdot_flag;)>
+    <return value={@num_val;,@sigfig;,@hdot_flag;}>
+  </function>
+        `;
+  } else {
+    return ``;
+  }
+};
+
 const generateNumListDef = () => {
   if (generateNumList) {
     return `
@@ -209,13 +237,20 @@ const generateNumListDef = () => {
 const stikeMathDef = () => {
   if (stikeMath) {
     return `
-  <function name=strike_math list={val1,mode}>
-    <if cond=("@mode;"=="editor")>
-      <return value="@val1;">  	
-    <else>
-      <return value="<font color=@userf.red;><strike><font color=@userf.black;>@val1;</font></strike></font>">  	
-    </if>
-  </function>
+    <!-- strike function -->
+    <!-- val1: Number or unit -->
+    <!-- mt_ap: 0 or "" for math font, other number for Anspro -->
+    <!-- mode: create variable in trunck module with any value and in TA/SM with 0 -->
+    <function name=strike_function list={val1,mt_ap,mode,sp}>
+      <var name=space_val value=(@sp;==1?"&sp;":"")>
+      <if cond=(!@mt_ap; && !@mode;)>
+        <return value="@space_val;<font color=@userf.red;><strike><font color=@userf.black;>@val1;</font></strike></font>">  	
+      <else cond=(@mt_ap; && !@mode;)>
+        <return value="\\style<'color:@userf.red;;'>;[\\enclose<'notation:updiagonalstrike;'>;[\\style<'color:;;'>;[@val1;]]]">  
+      <else>
+        <return value="@val1;">
+      </if>
+    </function>
         `;
   } else {
     return ``;
@@ -345,6 +380,7 @@ const generateISL = () => {
   const teacherHTML = htmlTeacherModule();
   const finalAP = generateAnswerProcessing();
   const intermidiateFunction = generateIntermidiateInst();
+  const intermidiateFunctionValue = generateIntermidiateValue();
   const generateNumListFunction = generateNumListDef();
   const stikeMathFunction = stikeMathDef();
   const islCode = getISLCode(
@@ -362,6 +398,7 @@ const generateISL = () => {
     teacherHTML,
     finalAP,
     intermidiateFunction,
+    intermidiateFunctionValue,
     generateNumListFunction,
     stikeMathFunction
   );

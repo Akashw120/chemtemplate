@@ -5,6 +5,7 @@ let gsQuestions = [];
 let islCode = `ISL code will be available here...`;
 let editorsList = ``;
 let intermediateInst = false;
+let intermediateVal = false;
 let generateNumList = false;
 let stikeMath = false;
 
