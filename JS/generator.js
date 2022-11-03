@@ -95,9 +95,10 @@ const getResolutionSteps = () => {
     ) {
       editbox = question.editbox;
       ddm = question.ddm;
-      if (editorType == "ansed" || editorType == "tabed") {
-        extraFeature = question.extraFeature;
-      }
+      extraFeature = question.extraFeature;
+      // if (editorType == "ansed" || editorType == "tabed") {
+      //   extraFeature = question.extraFeature;
+      // }
     }
     const comment =
       `<!-- *************************************** GS` +
@@ -246,7 +247,7 @@ const stikeMathDef = () => {
       <if cond=(!@mt_ap; && !@mode;)>
         <return value="@space_val;<font color=@userf.red;><strike><font color=@userf.black;>@val1;</font></strike></font>">  	
       <else cond=(@mt_ap; && !@mode;)>
-        <return value="\\style<'color:@userf.red;;'>;[\\enclose<'notation:updiagonalstrike;'>;[\\style<'color:;;'>;[@val1;]]]">  
+        <return value="\\\\style<'color:@userf.red;;'>;[\\\\enclose<'notation:updiagonalstrike;'>;[\\\\style<'color:;;'>;[@val1;]]]">  
       <else>
         <return value="@val1;">
       </if>

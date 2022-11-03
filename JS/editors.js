@@ -97,8 +97,8 @@ const formedGenerator = (i, mode, editbox, ddm, extraFeature) => {
   let feedbacktext =
     mode == 1
       ? `,
-            feedbacks:#{}`  
-      : ``;
+            feedbacks:#{},`  
+      : `,`;
 
   let reference = referenceGenerator("formed", stepName, mode);
   let addExtra = extraFeature ? `

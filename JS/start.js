@@ -259,6 +259,7 @@ const enableForAnsedFormedTabedGs = () => {
     $("#gsTriesCount").removeAttr("disabled");
     $("#gsEditboxCount").removeAttr("disabled");
     $("#gsDropdownCount").removeAttr("disabled");
+    enabledExtraFeaturesGS();
     $("#submitGsForm").removeAttr("disabled");
 }
 
