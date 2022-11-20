@@ -32,13 +32,14 @@ const getISLCode = (
 <ITEM TITLE="@Title">
 
   <INSTANCE>
+    <integer name=inst from=1 to=10>
   </INSTANCE>
   
   <REQUIREMENT>
   </REQUIREMENT>
 
   <!-- *************************************** Sequence Block ***************************************-->
-  <var name=item_instance_values value={}>
+  <var name=item_instance_values value={"@inst;"}>
   <SEQUENCE INDEX=history>
       <SIGNATURE NAME=@autoSequenceSignatureName() VALUE="@formatAutoSequenceSignature(@item_instance_values;)">
   </SEQUENCE>
@@ -52,19 +53,14 @@ const getISLCode = (
       <def module=".">
 	  
         <!-- ###############################<< Styling >>###############################-->
-        
         <var name=iB value="@userf.indent_begin();">
         <var name=iE value="@userf.indent_end();">
-
         <var name=nlHint value="@.newLineHint;">
         <var name=xl value="@userf.xlist();">
 
-        <var name=chem value="<math><font face=chemsymb></font></math>">
-
-        <!-- ###############################<< Question >>###############################-->
+        <!-- ###############################<< Var >>###############################-->
         
         <!-- ###############################<< editor >>###############################-->
-        
         ${staticSourceList}
         
         <!-- ###############################<< editor_ans >>###############################-->
@@ -82,9 +78,19 @@ const getISLCode = (
       
         <!-- *************************************** Main Question ***************************************-->
         <function name=StatementModule_Main list={modeRequested}>
+          <TEXT REF=part_qn>
+            <p>&(text(I1_text1));</p>
+          </TEXT>
+          <text ref=debug>
+            <hr>
+            <br>inst generation - &(@item_instance_values;)
+            <br>
+            <hr>
+          </text>
           <TEXT REF=STATEMENT>
+            %debug;
             <p>%Qn_text1;</p>
-            &(("@modeRequested"=="resolution" || "@modeRequested"=="gs") ? "<p>&(text(I1_text1))</p>" : "");
+            &(("@modeRequested"=="resolution" || "@modeRequested"=="gs") ? "<p>&(text(part_qn))</p>" : "");
           </TEXT>
           <return value="STATEMENT">
         </function>
