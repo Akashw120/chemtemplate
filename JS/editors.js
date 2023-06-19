@@ -155,8 +155,8 @@ const molecedGenerator = (i, mode) => {
   let feedbacktext = mode == 1 ? `feedbacks:#{},` : ``;
   let reference = referenceGenerator("moleced", stepName, mode);
   let newEditor = `  <var name=moleced_editor_${stepName} value=@.toolLayout.createTool('moleced','moleced_${stepName}','editor',#{
-            width:600,
-            height:400,
+            width: @userfChemistry.moleced_width["small"];,
+            height: @userfChemistry.moleced_height["small"];,
             menu: "standard",
             features:#{
                 input:#{
