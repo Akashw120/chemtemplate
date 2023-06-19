@@ -207,16 +207,18 @@ const teacherAnswerModule = () => {
 
 const molecedTA = (stepName) => {
   return `
-        <var name=answer_list_${stepName} value=@toolLayout.getAnswerRecallFromAuthoring("@tool_TA_${stepName};", "@item_name;")>
-        <var name=recall_hash_${stepName} value=#{
-            "answers":{"@answer_list_${stepName};"},
-            "tests":{
-            #{"name":"structureType", "structure": {"skeleton"}},
-            #{"name": "reversibleGroups", "tolerance": 10}
-            }
-        }>
-        <var name=fin_recall_hash_${stepName} value="@userf.stringifyJSJSON(@recall_hash_${stepName};);">
-        `;
+        <if cond=("@partRequested;" == "${stepName}")>
+          <var name=answer_list_${stepName} value=@toolLayout.getAnswerRecallFromAuthoring("@tool_TA_${stepName};", "@item_name;")>
+          <var name=recall_hash_${stepName} value=#{
+              "answers":{"@answer_list_${stepName};"},
+              "tests":{
+              #{"name":"structureType", "structure": {"skeleton"}},
+              #{"name": "reversibleGroups", "tolerance": 10}
+              }
+          }>
+          <var name=fin_recall_hash_${stepName} value="@userf.stringifyJSJSON(@recall_hash_${stepName};);">
+        </if>  
+          `;
 };
 
 const extraTA = () => {
