@@ -30,7 +30,6 @@ const getISLCode = (
 </description>
 
 <ITEM TITLE="@Title">
-
   <INSTANCE>
     <integer name=inst from=1 to=10>
   </INSTANCE>
@@ -51,7 +50,6 @@ const getISLCode = (
   <QUESTION>
     <function name=TrunkModule list={}>
       <def module=".">
-	  
         <!-- ###############################<< Styling >>###############################-->
         <var name=iB value="@userf.indent_begin();">
         <var name=iE value="@userf.indent_end();">
@@ -62,7 +60,6 @@ const getISLCode = (
         
         <!-- ###############################<< editor >>###############################-->
         ${staticSourceList}
-        
         <!-- ###############################<< editor_ans >>###############################-->
         ${staticSourceAnsList}
         
@@ -75,10 +72,13 @@ const getISLCode = (
     ${triesModule}
     <function name=StatementModule list={}>
       <def module="."> 
-      
         <!-- *************************************** Main Question ***************************************-->
         <function name=StatementModule_Main list={modeRequested}>
-          <text ref=debug><p>inst generation - &(@item_instance_values;)</p><hr></text>
+          <text ref=debug>
+            <div><span>===debug===</span></div>
+              inst - &(@item_instance_values;)
+              <hr>
+          </text>
           <if cond=("@modeRequested"=="resolution" || "@modeRequested"=="gs")>
             <text REF=part_qn>
               <p>%I1_text1;</p>
@@ -95,14 +95,12 @@ const getISLCode = (
       </def>
     </function>
 
-
     <function name=ResolutionSteps list={}>
       ${resolutionStepsList}
     </function>
 
     <function name=ResolutionModule list={partsRequested}>
       <def module=".">
-
         <!-- *************************************** Show Me ***************************************-->
         <function name=ResolutionModule_Main list={modeRequested}> 
           ${staticVarsList}
@@ -115,7 +113,6 @@ const getISLCode = (
       </def>
     </function>
 
-
     <function name=AnsproModule list={}>
       ${apModuleList}
     </function>
@@ -127,16 +124,13 @@ const getISLCode = (
     </function>
 
     <function name=HtmlTeacherModule list={partRequested}>
-      <var name=iB value="">
-      <var name=iE value="">
       <unvar name=teacherAnswerHTML>${teacherHTML}
       <return value="@teacherAnswerHTML">
     </function>
 
     <function name=HintModule list={}>
       <return value=text(Hint_text)>
-    </function>
-    
+    </function>  
   </QUESTION>
   ${finalAP}
 </ITEM>
