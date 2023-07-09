@@ -4,4 +4,5 @@ $(document).ready(() => {
     addTableHeaders();
     addButtonsListener();
     addCheckListner();
+    generateADAText();
 });

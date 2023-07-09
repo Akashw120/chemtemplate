@@ -88,7 +88,6 @@ const ansedGenerator = (i, mode, editbox, ddm, extraFeature) => {
   return newEditor;
 };
 
-
 const formedGenerator = (i, mode, editbox, ddm, extraFeature) => {
   let stepName = (mode == 1 ? "I" : "GS") + i;
   let feedbacktext =
