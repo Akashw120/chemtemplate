@@ -1,8 +1,14 @@
 const addStructure = () => {
     const buttons = `
         <div class="button-bar">
-            <button id="add-main-part">Add Main Question</button>
-            <button id="add-gs-part">Add Guided Solution</button>
+            <div>
+                <button id="add-main-part">Add Main Question</button>
+                <button id="add-gs-part">Add Guided Solution</button>
+            </div>
+            <div>
+                <input type="file" id="ada-input" accept=".xlsx"/>
+                <button id="add-ada-part">Convert</button>
+            </div>
         </div>`;
     
     const checkboxs = `
@@ -32,7 +38,7 @@ const addStructure = () => {
             <tbody></tbody>
         </table>`;
     const isl = `
-        <textarea id="isl-data" rows=100 cols=120>${islCode}</textarea>`;
+        <div id="text_area"><textarea id="isl-data" rows=10 cols=120>${islCode}</textarea> <textarea id="eng-data" rows=10 cols=120>${engCode}</textarea> <textarea id="ada-data" rows=10 cols=120>${adaCode}</textarea></div>`;
     $("#main-body").append(buttons);
     $("#main-body").append(checkboxs);
     $("#main-body").append(mainTable);
