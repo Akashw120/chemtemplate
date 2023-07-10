@@ -63,29 +63,41 @@ const generateTeacherAnswer = (stepName, editorType, editbox, ddm) => {
 
     if (stepType == "MQ"){
       teacherAnswer = `
-        <if cond=("@mode;" == "server_if")>
-            <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value=#{ans_returned_${stepName}_1:"\\\\editbox;[]"}>
-        <else>
-             <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value="&(text(ans_${stepName}));">
+        <if cond=("@partRequested;" == "${stepName}")>
+          <if cond=("@mode;" == "server_if")>
+              <var name=teacherAnswerHash["${editorType}_${stepName}"] value=#{ans_returned_${stepName}_1:"\\\\editbox;[]"}>
+          <else>
+              <var name=teacherAnswerHash["${editorType}_${stepName}"] value="&(text(ans_${stepName}));">
+          </if>
         </if>`;
     } else {
       teacherAnswer = `
-        <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value="&(text(ans_${stepName}));">`;
+        <if cond=("@partRequested;" == "${stepName}")>
+          <var name=teacherAnswerHash["${editorType}_${stepName}"] value="&(text(ans_${stepName}));">
+        </if>`;
     }
     
   } else if (editorType == "ansed") {
     let answer = `\\\\editbox;[]`;
     teacherAnswer = `
-        <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value="&(text(ans_${stepName}));">`;
+        <if cond=("@partRequested;" == "${stepName}")>
+          <var name=teacherAnswerHash["${editorType}_${stepName}"] value="&(text(ans_${stepName}));">
+        </if>`;
   } else if (editorType == "tabed") {
     teacherAnswer = `
-        <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value="&(text(ans_${stepName}));">`;
+        <if cond=("@partRequested;" == "${stepName}")>
+          <var name=teacherAnswerHash["${editorType}_${stepName}"] value="&(text(ans_${stepName}));">
+        </if>`;
   } else if (editorType == "moleced") {
     teacherAnswer = `
-        <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value=("@mode" == "solve" ? "@answer_list_${stepName};" : "@fin_recall_hash_${stepName};")>`;
+        <if cond=("@partRequested;" == "${stepName}")>
+          <var name=teacherAnswerHash["${editorType}_${stepName}"] value=("@mode" == "solve" ? "@answer_list_${stepName};" : "@fin_recall_hash_${stepName};")>
+        </if>`;
   } else {
     teacherAnswer = `
-        <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value=("@mode" == "solve" ? "&(text())" : "&(text())")>`;
+        <if cond=("@partRequested;" == "${stepName}")>
+          <var name=teacherAnswerHash["${editorType}_${stepName}"] value=("@mode" == "solve" ? "&(text())" : "&(text())")>
+        </if>`;
   }
   return teacherAnswer;
 };
@@ -119,7 +131,9 @@ const generateTeacherAnswerSource = (stepName, editorType, editbox, ddm) => {
         `;
   } else {
     teacherAnswer = `
-        <var name=teacherAnswerHash["${editorType}_${stepName}"] cond=("@partRequested;" == "${stepName}") value=("@mode" == "solve" ? "&(text())" : "&(text())")>`;
+        <if cond=("@partRequested;" == "${stepName}")>
+          <var name=teacherAnswerHash["${editorType}_${stepName}"] value=("@mode" == "solve" ? "&(text())" : "&(text())")>
+        </if>`;
   }
   return teacherAnswer;
 };
