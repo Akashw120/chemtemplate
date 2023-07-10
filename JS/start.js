@@ -38,7 +38,7 @@ const addStructure = () => {
             <tbody></tbody>
         </table>`;
     const isl = `
-        <div id="text_area"><textarea id="isl-data" rows=10 cols=120>${islCode}</textarea> <textarea id="eng-data" rows=10 cols=120>${engCode}</textarea> <textarea id="ada-data" rows=10 cols=120>${adaCode}</textarea></div>`;
+        <div id="text_area"><textarea id="isl-data" rows=35 cols=200>${islCode}</textarea> <textarea id="eng-data" rows=35 cols=50>${engCode}</textarea> <textarea id="ada-data" rows=35 cols=100>${adaCode}</textarea></div>`;
     $("#main-body").append(buttons);
     $("#main-body").append(checkboxs);
     $("#main-body").append(mainTable);
