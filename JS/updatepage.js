@@ -68,4 +68,5 @@ const updateISL = () => {
     clearOldData();
     updateDataInTable();
     generateISL();
+    generateENG();
 }
