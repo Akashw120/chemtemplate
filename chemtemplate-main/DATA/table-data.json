@@ -1,0 +1,4 @@
+{
+    "mainPartHeaders":["Step Name","Editor Type","No. of Tries","No. of Editbox","No. of Dropdowns","extra features"],
+    "gsPartHeaders":["Step Name", "Static Step","Editor Type","No. of Editbox","No. of Dropdowns","extra features"]
+}
