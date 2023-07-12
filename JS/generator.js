@@ -329,12 +329,7 @@ const staticVarsEPGenerate = () => {
       editbox = question.editbox;
       ddm = question.ddm;
     }
-    let staticVar = generateStaticVar(
-      stepName,
-      editorType,
-      editbox,
-      ddm
-    );
+    let staticVar = generateStaticVar(stepName, editorType, editbox, ddm);
     staticVarsArr.push(staticVar);
     i++;
   });
@@ -353,12 +348,7 @@ const staticVarsEPGenerate = () => {
         editbox = question.editbox;
         ddm = question.ddm;
       }
-      let staticVar = generateStaticVar(
-        stepName,
-        editorType,
-        editbox,
-        ddm
-      );
+      let staticVar = generateStaticVar(stepName, editorType, editbox, ddm);
       staticVarsArr.push(staticVar);
     }
     j++;
@@ -404,4 +394,87 @@ const generateISL = () => {
     stikeMathFunction
   );
   $("#isl-data").val(islCode);
+};
+
+// ENGlish File generator
+const getEngtext = () => {
+  let eng_var = [];
+  let eng_text = [];
+  let i = 1,
+    j = 1;
+  mainQuestions.forEach((question) => {
+    let stepName = "I" + i;
+    let editorType = question.type;
+    let editbox = 0;
+    let ddm = 0;
+    let option_var = [];
+    let main_text = ``;
+    if (
+      editorType == "ansed" ||
+      editorType == "formed" ||
+      editorType == "tabed"
+    ) {
+      editbox = question.editbox;
+      ddm = question.ddm;
+    }
+    if (ddm != 0) {
+      for (let a = 0; a < ddm; a++) {
+        option_var.push(
+          "\r\n    " + `<var name=DDM_${stepName}_${a + 1} value={}>`
+        );
+      }
+      main_text = `<text ref=${stepName}_text></text>`;
+    } else {
+    }
+    let varEng = `${option_var.join("")}`;
+
+    let textEng = `
+    ${main_text}
+    <text ref=${stepName}_text1></text>
+    `;
+    eng_var.push(varEng);
+    eng_text.push(textEng);
+    i++;
+  });
+  gsQuestions.forEach((question) => {
+    let stepName = "GS" + j;
+    let editorType = question.type;
+    let editbox = 0;
+    let ddm = 0;
+    let option_var = [];
+    let main_text = ``;
+    if (
+      editorType == "ansed" ||
+      editorType == "formed" ||
+      editorType == "tabed"
+    ) {
+      editbox = question.editbox;
+      ddm = question.ddm;
+    }
+    if (ddm != 0) {
+      for (let a = 0; a < ddm; a++) {
+        option_var.push(
+          "\r\n    " + `<var name=DDM_${stepName}_${a + 1} value={}>`
+        );
+      }
+      main_text = `<text ref=${stepName}_text></text>`;
+    } else {
+    }
+
+    let varEng = `${option_var.join("")}`;
+    let textEng = `
+    ${main_text}
+    <text ref=${stepName}_text1></text>
+    `;
+    eng_var.push(varEng);
+    eng_text.push(textEng);
+    j++;
+  });
+  return [eng_var.join(""), eng_text.join("")];
+};
+
+const generateENG = () => {
+  const engText = getEngtext();
+  const engCode = getENGCode(engText);
+  $("#eng-data").val(engCode);
 };

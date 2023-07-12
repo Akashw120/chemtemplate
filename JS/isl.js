@@ -75,8 +75,8 @@ const getISLCode = (
         <!-- *************************************** Main Question ***************************************-->
         <function name=StatementModule_Main list={modeRequested}>
           <text ref=debug>
-            <div><span>===debug===</span></div>
-              inst - &(@item_instance_values;)
+            <div>===================== DebugText =====================</div>
+              inst == &(@item_instance_values;)
               <hr>
           </text>
           <if cond=("@modeRequested"=="resolution" || "@modeRequested"=="gs")>
@@ -86,7 +86,7 @@ const getISLCode = (
           </if>
           <TEXT REF=STATEMENT>
             %debug;
-            <p>%Qn_text1;</p>
+            <p>%Qn_text;</p>
             %part_qn;
           </TEXT>
           <return value="STATEMENT">
