@@ -38,7 +38,7 @@ const convertToChem = () => {
                         .split(" ")
                     let cleaned_array = p_clean.slice(1, -1)
 
-                    let final_Arr = "{"
+                    let final_Arr = ""
                     for (const ca of cleaned_array) {
                         if (ca == "+" || ca == "-") {
                             final_Arr += `,"${ca}",`
@@ -110,7 +110,7 @@ const convertToChem = () => {
                             }
                         }
                     }
-                    final_Arr += "}"
+                    final_Arr += ""
                     finalOp += `<var name=chem_${index} value=@userfChemistry.formatChemEquation({${final_Arr}},1)>\n`
                 }
                 index++;
