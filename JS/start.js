@@ -14,7 +14,10 @@ const addStructure = () => {
             <div>
                 <label for="ada_label">Choose a .xlsx file:</label>
                 <input type="file" id="ada-input" accept=".xlsx" name="ada_label"/>
-                <button id="add-ada-part">Convert</button>
+                <button id="add-ada-part">Convert to ADA</button>
+            </div>
+            <div>
+                <button id="convert-to-chem">Convert to Chem</button>
             </div>
         </div>`;
 
@@ -22,25 +25,36 @@ const addStructure = () => {
         `;
 
   const mainTable = `
-        <table class="main-question-table" border=1 cellspacing=0>
-            <caption><b>Main Question</b></caption>
-            <thead>
-                <tr>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>`;
+        <div class="eqn-bar">
+          <div>
+            <table class="main-question-table" border=1 cellspacing=0>
+                <caption><b>Main Question</b></caption>
+                <thead>
+                  <tr>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <table class="gs-question-table" border=1 cellspacing=0>
+              <caption><b>Guided Solution</b></caption>
+              <thead>
+                  <tr>
+                  </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="chem-data-container">
+            <textarea id="chem-data"></textarea>
+            <textarea id="chemCode-data" rows=10 cols=56>${chemCode}</textarea>
+          </div>
+        </div>
+        `;
   const gsTable = `
-        <table class="gs-question-table" border=1 cellspacing=0>
-            <caption><b>Guided Solution</b></caption>
-            <thead>
-                <tr>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>`;
+        `;
   const isl = `
         <div id="text_area"><textarea id="isl-data" rows=35 cols=180>${islCode}</textarea> <textarea id="eng-data" rows=35 cols=85>${engCode}</textarea> <textarea id="ada-data" rows=35 cols=85>${adaCode}</textarea></div>`;
+
   $("#main-body").append(buttons);
   $("#main-body").append(checkboxs);
   $("#main-body").append(mainTable);
