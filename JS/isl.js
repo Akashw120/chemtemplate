@@ -44,7 +44,7 @@ const getISLCode = (
   </sequence>
 
   <requirement>
-      <requires cond=@testAutoSequencerequirement(@item_instance_values;)>
+      <requires cond=@testAutoSequenceRequirement(@item_instance_values;)>
   </requirement>
 
   <question>
@@ -72,7 +72,7 @@ const getISLCode = (
     ${triesModule}
     <function name=StatementModule list={}>
       <def module="."> 
-        <!-- *************************************** Main question ***************************************-->
+        <!-- *************************************** Main Question ***************************************-->
         <function name=StatementModule_Main list={modeRequested}>
           <text ref=debug>
             <div>===================== DebugText =====================</div>
