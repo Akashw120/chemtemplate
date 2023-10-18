@@ -170,7 +170,7 @@ const generateAnswerProcessing = () => {
   <function name=anspro_${editorType}_${stepName} list={studentAnswer,teacherAnswer}>
 ${spiltval}${generalRule}
     ${editboxEvalution}${ddmEvalution}
-    </function>
+  </function>
         `;
     answerProcessingArr.push(functionAP);
     i++;
