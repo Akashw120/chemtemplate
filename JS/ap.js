@@ -166,11 +166,11 @@ const generateAnswerProcessing = () => {
     let spiltval = splitAnswerForAP(editbox, ddm, editorType);
     let apComment = `<!-- *************************************** Answer processing of ${stepName} *************************************** -->`;
     let functionAP = `
-    ${apComment}
-    <function name=anspro_${editorType}_${stepName} list={studentAnswer,teacherAnswer}>
+  ${apComment}
+  <function name=anspro_${editorType}_${stepName} list={studentAnswer,teacherAnswer}>
 ${spiltval}${generalRule}
     ${editboxEvalution}${ddmEvalution}
-    </function>
+  </function>
         `;
     answerProcessingArr.push(functionAP);
     i++;

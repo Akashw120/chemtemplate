@@ -29,25 +29,25 @@ const getISLCode = (
   <label name=thesaurus value={}>
 </description>
 
-<ITEM TITLE="@Title">
-  <INSTANCE>
+<item title="@Title">
+  <instance>
     <integer name=inst from=1 to=10>
-  </INSTANCE>
+  </instance>
   
-  <REQUIREMENT>
-  </REQUIREMENT>
+  <requirement>
+  </requirement>
 
   <!-- *************************************** Sequence Block ***************************************-->
   <var name=item_instance_values value={"@inst;"}>
-  <SEQUENCE INDEX=history>
-      <SIGNATURE NAME=@autoSequenceSignatureName() VALUE="@formatAutoSequenceSignature(@item_instance_values;)">
-  </SEQUENCE>
+  <sequence index=history>
+      <signature name=@autoSequenceSignatureName() value="@formatAutoSequenceSignature(@item_instance_values;)">
+  </sequence>
 
-  <REQUIREMENT>
-      <REQUIRES COND=@testAutoSequenceRequirement(@item_instance_values;)>
-  </REQUIREMENT>
+  <requirement>
+      <requires cond=@testAutoSequenceRequirement(@item_instance_values;)>
+  </requirement>
 
-  <QUESTION>
+  <question>
     <function name=TrunkModule list={}>
       <def module=".">
         <!-- ###############################<< Styling >>###############################-->
@@ -80,16 +80,16 @@ const getISLCode = (
               <hr>
           </text>
           <if cond=("@modeRequested"=="resolution" || "@modeRequested"=="gs")>
-            <text REF=part_qn>
+            <text ref=part_qn>
               <p>%I1_text1;</p>
             </text>
           </if>
-          <TEXT REF=STATEMENT>
+          <text ref=statement>
             %debug;
             <p>%Qn_text;</p>
             %part_qn;
-          </TEXT>
-          <return value="STATEMENT">
+          </text>
+          <return value="statement">
         </function>
         ${statementSteps}
       </def>
@@ -104,10 +104,10 @@ const getISLCode = (
         <!-- *************************************** Show Me ***************************************-->
         <function name=ResolutionModule_Main list={modeRequested}> 
           ${staticVarsList}
-          <TEXT REF=RESOLUTION>
+          <text ref=resolution>
             <p>%EP_text1;</p>
           </TEXT>
-          <return value="RESOLUTION">
+          <return value="resolution">
         </function>
         ${resolutionSteps}
       </def>
@@ -131,9 +131,10 @@ const getISLCode = (
     <function name=HintModule list={}>
       <return value=text(Hint_text)>
     </function>  
-  </QUESTION>
+  </question>
   ${finalAP}
-</ITEM>
+</item>
     `;
+    console.log(finalAP)
   return isl_code;
 };

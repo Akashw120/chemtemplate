@@ -45,21 +45,21 @@ const sourceGenerator = (editor, stepName, editbox, ddm) => {
 };
 
 const referenceGenerator = (editor, stepName, mode, ddm = 0) => {
-  let refVal = mode == 1 ? "INTERACTION" : "SOLUTION";
+  let refVal = mode == 1 ? "interaction" : "solution";
   let init_indent = ddm ? "" : "@iB;";
   let end_indent = ddm ? "" : "@iE;";
-  return `<TEXT REF=${refVal}>
+  return `<text ref=${refVal}>
             <p>%${stepName}_text1;</p>
             ${init_indent}@${editor}_editor_${stepName};${end_indent}
-          </TEXT>
+          </text>
           <return value="${refVal}">`;
 };
 
 const staticGS = () => {
   return `
-            <TEXT REF=SOLUTION>
-            </TEXT>
-            <return value="SOLUTION">`;
+            <text ref=solution>
+            </text>
+            <return value="solution">`;
 };
 
 const ansedGenerator = (i, mode, editbox, ddm, extraFeature) => {
