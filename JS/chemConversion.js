@@ -6,6 +6,7 @@ const convertToChem = () => {
         menubar: false,
         width: "400px",
         height: "175px",
+        resize: false,
         init_instance_callback: (editor) => {
             editor.on('change', (evt) => {
                 selectedFile = evt.level.content
