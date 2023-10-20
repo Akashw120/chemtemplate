@@ -48,6 +48,19 @@ div,
   background-color: #545b5a;
   color: white;
 }
+
+.eqn-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  color: black;
+}
+
+.chem-data-container {
+  display: flex;
+  margin-top: 24px;
+}
+
 label {
   font-size: 18px;
   padding-right: 10px;
@@ -59,8 +72,9 @@ label {
   margin-top: 20px;
   background-color: white;
 }
-.gs-question-table > caption,
-.main-question-table > caption {
+
+.gs-question-table>caption,
+.main-question-table>caption {
   padding: 4px 1px;
   font-size: 20px;
 }
@@ -71,6 +85,7 @@ button,
   padding: 2px 12px;
   font-size: 15px;
 }
+
 th,
 td {
   padding: 4px 8px;

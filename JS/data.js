@@ -5,6 +5,7 @@ let gsQuestions = [];
 let islCode = `ISL code will be available here...`;
 let engCode = `English text will be available here...`;
 let adaCode = `ADA text will be available here...`;
+let chemCode = `Chem font text will be available here...`;
 let editorsList = ``;
 let intermediateInst = false;
 let intermediateVal = false;

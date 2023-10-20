@@ -5,4 +5,5 @@ $(document).ready(() => {
     addButtonsListener();
     addCheckListner();
     generateADAText();
+    convertToChem();
 });
