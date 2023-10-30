@@ -106,7 +106,7 @@ const getISLCode = (
           ${staticVarsList}
           <text ref=resolution>
             <p>%EP_text1;</p>
-          </TEXT>
+          </text>
           <return value="resolution">
         </function>
         ${resolutionSteps}
